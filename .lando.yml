@@ -1,11 +1,14 @@
 name: bq
-service:
+services:
   appserver:
     type: python:3.7
     build:
       - pip install -r requirements.txt
   database:
     type: postgres:10
+
+env_file:
+  - .env
 
 tooling:
   python:

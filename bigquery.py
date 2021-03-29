@@ -10,12 +10,17 @@ query_job = client.query(
         CAST(id as STRING)) as url,
       view_count
     FROM `bigquery-public-data.stackoverflow.posts_questions`
-    WHERE tags like '%google-bigquery%'
+    WHERE tags like '%lando%'
     ORDER BY view_count DESC
     LIMIT 10"""
 )
 
-results = query_job.result()  # Waits for job to complete.
+# Waits for job to complete.
+results = query_job.result()
 
+total = 0
 for row in results:
+    total += row.view_count
     print("{} : {} views".format(row.url, row.view_count))
+
+print("Total: {}".format(total))
